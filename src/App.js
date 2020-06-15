@@ -1,26 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import useDebounce from './useDebounce';
+import MouseTracker from './renderProps/mousetracker';
 
-function App() {
+const App = () => {
+  console.log('i mounted')
+  const [searchTerm, setSearchTerm] = useState('');
+  const _searchTerm = useDebounce(searchTerm, 3000);
+
+  useEffect(() => {
+    if (_searchTerm) {
+      console.log(_searchTerm)
+    }
+  }, [_searchTerm])
+
+  // return (
+  //   <div>
+  //     Type here
+  //     <input type='text' onChange={e => setSearchTerm(e.target.value)} value={searchTerm} />
+  //   </div>
+  // )
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <MouseTracker />
     </div>
-  );
+  )
 }
 
 export default App;
